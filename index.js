@@ -28,11 +28,11 @@ app.get('/api/quotes', (req, res) => {
     const filters = req.query;
     const page = parseInt(filters.page) || 1;
     const perPage = parseInt(filters.perPage) || 10;
-
     let filteredQuotes = quotes;
 
     if (filters.Category) {
-        filteredQuotes = filteredQuotes.filter(quote => quote.Category === filters.Category);
+        const categories = filters.Category.split(',');
+        filteredQuotes = filteredQuotes.filter(quote => categories.includes(quote.Category));
     }
 
     // Shuffle the quotes array
